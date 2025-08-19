@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app_flutter/global_variable.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app_flutter/cart_provider.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context).cart;
     return Scaffold(
       appBar: AppBar(title: const Text('Cart')),
       body: ListView.builder(
@@ -19,7 +21,12 @@ class CartPage extends StatelessWidget {
               radius: 30,
             ),
             trailing: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<CartProvider>(
+                  context,
+                  listen: false,
+                ).removeProduct(cartItem);
+              },
               icon: Icon(Icons.delete, color: Colors.red),
             ),
             title: Text(
