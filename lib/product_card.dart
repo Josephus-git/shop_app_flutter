@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ProductCard extends StatelessWidget {
   final String title;
@@ -16,6 +17,12 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Use the 'en_NG' locale for Nigeria and specify the currency name 'NGN'
+    final formatter = NumberFormat.currency(
+      locale: 'en_NG',
+      name: 'NGN',
+      symbol: '#', // Explicitly setting the symbol is the most reliable way.
+    );
     return Container(
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(16),
@@ -28,7 +35,10 @@ class ProductCard extends StatelessWidget {
         children: [
           Text(title, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 5),
-          Text('\$$price', style: Theme.of(context).textTheme.bodySmall),
+          Text(
+            formatter.format(price),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           const SizedBox(height: 5),
           Center(child: Image.asset(image, height: 175)),
         ],

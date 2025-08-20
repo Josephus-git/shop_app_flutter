@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app_flutter/cart_provider.dart';
 
@@ -35,6 +36,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Use the 'en_NG' locale for Nigeria and specify the currency name 'NGN'
+    final formatter = NumberFormat.currency(
+      locale: 'en_NG',
+      name: 'NGN',
+      symbol: '#', // Explicitly setting the symbol is the most reliable way.
+    );
+
     return Scaffold(
       appBar: AppBar(title: Text('Details'), centerTitle: true),
       body: Column(
@@ -61,7 +69,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             child: Column(
               children: [
                 Text(
-                  '\$${widget.product['price']}',
+                  formatter.format(widget.product['price']),
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 10),
